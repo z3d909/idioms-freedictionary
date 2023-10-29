@@ -1,0 +1,28 @@
+#idioms-popup {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    width: 100%;
+    padding: 2rem 3rem;
+    box-shadow: 0 0 12px 0 #ccc;
+}
+
+#idioms-popup > hr {
+    background: #ccc;
+    height: 1px;
+    margin: 1rem 0;
+}
+
+#idioms-popup > .idioms-popup__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#idioms-popup > .idioms-content > .idiom-content {
+    margin-bottom: 1rem;
+}
+
+#idioms-popup > .idioms-content > .idiom-content .idiom-content__illustrations--item {
+    font-style: italic;
+}

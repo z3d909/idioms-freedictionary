@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Coach extension",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "public/r-solid.svg"
+  },
+  "minimum_chrome_version": "92",
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "assets/content.js-loader-7316bd0e.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "matches": [
+        "https://idioms.thefreedictionary.com/*"
+      ]
+    }
+  ],
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://idioms.thefreedictionary.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://idioms.thefreedictionary.com/*"
+      ],
+      "resources": [
+        "assets/content.js-b792e958.js"
+      ],
+      "use_dynamic_url": true
+    }
+  ]
+}
