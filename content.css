@@ -7,6 +7,12 @@
     box-shadow: 0 0 12px 0 #ccc;
 }
 
+#idioms-popup > .idioms-popup__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
 #idioms-popup > hr {
     background: #ccc;
     height: 1px;

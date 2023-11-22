@@ -74,53 +74,56 @@ function hidePopup(element) {
 
 /**
  * Create popup element and append to DOM
- * @param {string} title
- * @param {{description: string; illustrations: string[]}[]} idioms
+ * @param {{title: string; idioms: {description: string; illustrations: string[]}[]}[]} data
  */
-function showPopupFor({title, idioms}) {
+function showPopupFor(data) {
     const popupBlock = document.createElement('div');
     popupBlock.id = 'idioms-popup';
 
-    const titleBlock = document.createElement('div');
-    titleBlock.className = 'idioms-popup__title';
-
-    const popupTitle = document.createElement('h3');
-    popupTitle.innerHTML = title;
-    titleBlock.appendChild(popupTitle);
-
     const closeButton = document.createElement('button');
     closeButton.innerHTML = 'X';
+    closeButton.className = 'idioms-popup__close';
     closeButton.addEventListener('click', () => hidePopup(popupBlock));
-    titleBlock.appendChild(closeButton);
+    popupBlock.appendChild(closeButton);
 
-    popupBlock.appendChild(titleBlock);
-    popupBlock.appendChild(document.createElement('hr'));
+    data.forEach(({title, idioms}) => {
+        const titleBlock = document.createElement('div');
+        titleBlock.className = 'idioms-popup__title';
 
-    const idiomsContentBlock = document.createElement('div');
-    idiomsContentBlock.className = 'idioms-content';
+        const popupTitle = document.createElement('h3');
+        popupTitle.innerHTML = title;
+        titleBlock.appendChild(popupTitle);
 
-    idioms.forEach(idiom => {
-        const idiomBlock = document.createElement('div');
-        idiomBlock.className = 'idiom-content';
-        idiomsContentBlock.appendChild(idiomBlock);
+        popupBlock.appendChild(titleBlock);
+        popupBlock.appendChild(document.createElement('hr'));
 
-        const idiomDescription = document.createElement('div');
-        idiomDescription.className = 'idiom-content__descriptions';
-        idiomDescription.innerHTML = idiom.description;
-        idiomBlock.appendChild(idiomDescription);
+        const idiomsContentBlock = document.createElement('div');
+        idiomsContentBlock.className = 'idioms-content';
 
-        const illustrationsBlock = document.createElement('div');
-        illustrationsBlock.className = 'idiom-content__illustrations';
-        idiomBlock.appendChild(illustrationsBlock);
+        idioms.forEach(idiom => {
+            const idiomBlock = document.createElement('div');
+            idiomBlock.className = 'idiom-content';
+            idiomsContentBlock.appendChild(idiomBlock);
 
-        idiom.illustrations.forEach(illustration => {
-            const illustrationItemBlock = document.createElement('div');
-            illustrationItemBlock.className = 'idiom-content__illustrations--item';
-            illustrationItemBlock.innerHTML = illustration;
-            illustrationsBlock.appendChild(illustrationItemBlock);
+            const idiomDescription = document.createElement('div');
+            idiomDescription.className = 'idiom-content__descriptions';
+            idiomDescription.innerHTML = idiom.description;
+            idiomBlock.appendChild(idiomDescription);
+
+            const illustrationsBlock = document.createElement('div');
+            illustrationsBlock.className = 'idiom-content__illustrations';
+            idiomBlock.appendChild(illustrationsBlock);
+
+            idiom.illustrations.forEach(illustration => {
+                const illustrationItemBlock = document.createElement('div');
+                illustrationItemBlock.className = 'idiom-content__illustrations--item';
+                illustrationItemBlock.innerHTML = illustration;
+                illustrationsBlock.appendChild(illustrationItemBlock);
+            });
         });
+
+        popupBlock.appendChild(idiomsContentBlock);
     });
 
-    popupBlock.appendChild(idiomsContentBlock);
     document.body.appendChild(popupBlock);
 }
