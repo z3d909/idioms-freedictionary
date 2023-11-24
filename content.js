@@ -86,43 +86,14 @@ function showPopupFor(data) {
     closeButton.addEventListener('click', () => hidePopup(popupBlock));
     popupBlock.appendChild(closeButton);
 
-    data.forEach(({title, idioms}) => {
-        const titleBlock = document.createElement('div');
-        titleBlock.className = 'idioms-popup__title';
+    data.forEach((section, index) => {
+        if (index > 0) {
+            popupBlock.appendChild(document.createElement('hr'));
+        }
 
-        const popupTitle = document.createElement('h3');
-        popupTitle.innerHTML = title;
-        titleBlock.appendChild(popupTitle);
-
-        popupBlock.appendChild(titleBlock);
-        popupBlock.appendChild(document.createElement('hr'));
-
-        const idiomsContentBlock = document.createElement('div');
-        idiomsContentBlock.className = 'idioms-content';
-
-        idioms.forEach(idiom => {
-            const idiomBlock = document.createElement('div');
-            idiomBlock.className = 'idiom-content';
-            idiomsContentBlock.appendChild(idiomBlock);
-
-            const idiomDescription = document.createElement('div');
-            idiomDescription.className = 'idiom-content__descriptions';
-            idiomDescription.innerHTML = idiom.description;
-            idiomBlock.appendChild(idiomDescription);
-
-            const illustrationsBlock = document.createElement('div');
-            illustrationsBlock.className = 'idiom-content__illustrations';
-            idiomBlock.appendChild(illustrationsBlock);
-
-            idiom.illustrations.forEach(illustration => {
-                const illustrationItemBlock = document.createElement('div');
-                illustrationItemBlock.className = 'idiom-content__illustrations--item';
-                illustrationItemBlock.innerHTML = illustration;
-                illustrationsBlock.appendChild(illustrationItemBlock);
-            });
-        });
-
-        popupBlock.appendChild(idiomsContentBlock);
+        const block = document.createElement('div');
+        block.innerHTML = section;
+        popupBlock.appendChild(block);
     });
 
     document.body.appendChild(popupBlock);
