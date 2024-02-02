@@ -11,7 +11,6 @@
  * @return {Promise<void>}
  */
 async function onIdiomClick(event) {
-    console.log(event)
     if (event.target.tagName !== 'A') {
         return;
     }
