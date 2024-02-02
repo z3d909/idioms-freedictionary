@@ -1,6 +1,5 @@
 import parser from './helpers/parser.js';
 
-
 /**
  *
  * @param {{sender: string; data: {html: string, name: string}}} payload

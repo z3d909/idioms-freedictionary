@@ -1,7 +1,7 @@
 'use strict';
 
 (async () => {
-    const listNode = document.querySelector('.content-holder section ul');
+    const listNode = document.querySelector('.content-holder');
     listNode.addEventListener('click', onIdiomClick);
 })()
 
@@ -11,14 +11,18 @@
  * @return {Promise<void>}
  */
 async function onIdiomClick(event) {
+    console.log(event)
     if (event.target.tagName !== 'A') {
+        return;
+    }
+
+    if (!event.currentTarget.querySelector('section ul').contains(event.target)) {
         return;
     }
 
     event.preventDefault();
     event.stopPropagation();
 
-    // const node = event.target.querySelector('a');
     const node = event.target;
     const {success, data} = await chromeSend({
         html: await idiomRequest(node.attributes.href.value),
@@ -72,6 +76,27 @@ function hidePopup(element) {
     element.remove();
 }
 
+function copyToBuffer(element) {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    selection.removeAllRanges(); // Clear any existing selections
+
+    range.selectNodeContents(element); // Select the content of the element
+    selection.addRange(range); // Add the range to the selection
+
+    try {
+        // Execute the copy command
+        const successful = document.execCommand('copy');
+        const msg = successful ? 'Content copied successfully.' : 'Content copy was unsuccessful.';
+        console.log(msg);
+    } catch (err) {
+        console.error('Failed to copy content: ', err);
+    }
+
+    // Clear the selection
+    selection.removeAllRanges();
+}
+
 /**
  * Create popup element and append to DOM
  * @param {{title: string; idioms: {description: string; illustrations: string[]}[]}[]} data
@@ -86,15 +111,32 @@ function showPopupFor(data) {
     closeButton.addEventListener('click', () => hidePopup(popupBlock));
     popupBlock.appendChild(closeButton);
 
+    const copyButton = getCopyButton();
+    popupBlock.appendChild(copyButton);
+
+    const content = document.createElement('div');
+    content.className = 'idioms-popup__content';
+
     data.forEach((section, index) => {
         if (index > 0) {
-            popupBlock.appendChild(document.createElement('hr'));
+            content.appendChild(document.createElement('hr'));
         }
 
         const block = document.createElement('div');
         block.innerHTML = section;
-        popupBlock.appendChild(block);
+        content.appendChild(block);
     });
+
+    copyButton.addEventListener('click', () => copyToBuffer(content));
+    popupBlock.appendChild(content);
 
     document.body.appendChild(popupBlock);
 }
+
+function getCopyButton() {
+    const button = document.createElement('button');
+    button.innerHTML = 'Copy';
+    button.className = 'idioms-popup__copy';
+    return button;
+}
+

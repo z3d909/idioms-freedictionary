@@ -15,7 +15,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.js-loader-1c880694.js"
+        "assets/content.js-loader-5e7f1392.js"
       ],
       "css": [
         "content.css"
@@ -37,7 +37,7 @@
         "https://idioms.thefreedictionary.com/*"
       ],
       "resources": [
-        "assets/content.js-c305bdcc.js"
+        "assets/content.js-2abb3b35.js"
       ],
       "use_dynamic_url": true
     }

@@ -3,7 +3,7 @@
     bottom: 0;
     background: #fff;
     width: 100%;
-    padding: 2rem 3rem;
+    padding: 4rem 1rem 2rem;
     box-shadow: 0 0 12px 0 #ccc;
 }
 
@@ -11,6 +11,12 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+}
+
+#idioms-popup > .idioms-popup__copy {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
 }
 
 #idioms-popup > hr {
