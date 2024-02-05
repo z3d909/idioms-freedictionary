@@ -117,10 +117,6 @@ function showPopupFor(data) {
     content.className = 'idioms-popup__content';
 
     data.forEach((section, index) => {
-        if (index > 0) {
-            content.appendChild(document.createElement('hr'));
-        }
-
         const block = document.createElement('div');
         block.innerHTML = section;
         content.appendChild(block);
