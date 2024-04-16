@@ -1,12 +1,16 @@
 'use strict';
 
 (async () => {
-    const listNode = document.querySelector('.content-holder');
-    listNode.addEventListener('click', onIdiomClick);
+    const contentListNode = document.querySelector('.content-holder');
+    contentListNode.addEventListener('click', onIdiomClick);
+    const idiomsBrowserListNode = document.querySelectorAll('.list-holder')[1];
+    if (idiomsBrowserListNode) {
+        idiomsBrowserListNode.addEventListener('click', onIdiomBrowserSectionClick);
+    }
 })()
 
 /**
- * Click event handler
+ * Click event handler for see also section
  * @param event
  * @return {Promise<void>}
  */
@@ -21,8 +25,30 @@ async function onIdiomClick(event) {
 
     event.preventDefault();
     event.stopPropagation();
-
     const node = event.target;
+
+    await processClickedElement(node);
+}
+
+/**
+ * Click event handler for Idioms browser section
+ * @param event
+ * @return {Promise<void>}
+ */
+async function onIdiomBrowserSectionClick(event) {
+    if (event.target.tagName !== 'A') {
+        return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    const node = event.target;
+
+    await processClickedElement(node);
+
+}
+
+async function processClickedElement(node) {
     const {success, data} = await chromeSend({
         html: await idiomRequest(node.attributes.href.value),
         name: node.text,
